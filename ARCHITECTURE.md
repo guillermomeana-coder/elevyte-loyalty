@@ -96,14 +96,14 @@ src/middleware.ts           — Protección de rutas
 | F0 Foundation | ✅ DONE | DB, auth, layout, middleware |
 | F1 Agencia/Negocios | ✅ DONE | CRUD agencia, negocios, ubicaciones, admins |
 | F2 Tarjetas Core | ✅ DONE | CRUD tarjetas, rewards, niveles, 7 tabs |
-| F3 Analytics | ⬜ PENDIENTE | Dashboard métricas con charts |
-| F4 QR Scanning | ✅ DONE | Scanner cámara, sellos, rate limiting, API scan |
-| F5 Wallet | ⬜ PENDIENTE | Apple Wallet + Google Wallet (necesita certs) |
+| F3 Analytics | ✅ DONE | Dashboard con Recharts, activity feed, stats reales |
+| F4 QR Scanning | ✅ DONE | Scanner cámara jsQR, sellos, rate limiting, API scan |
+| F5 Wallet | ✅ DONE* | Apple Wallet passkit-generator + Google Wallet JWT (*necesita certs para producción) |
 | F6 Rutas Públicas | ✅ DONE | Registro /register/[slug], menú público /menu/[slug] |
 | F7 Menús | ✅ DONE | PDF upload, catálogo web, club invitation |
-| F8 Pass Builder | ⬜ PENDIENTE | Editor visual |
-| F9 Push + Email | ⬜ PENDIENTE | Notificaciones, Resend |
-| F10 Billing | ⬜ PENDIENTE | Stripe, i18n |
+| F8 Pass Builder | ✅ DONE | Editor visual react-colorful, preview iOS/Android live |
+| F9 Push + Email | ✅ DONE | Push create/send, Resend welcome email, graceful degradation |
+| F10 Billing | ⬜ PENDIENTE | Stripe suscripciones, i18n |
 
 ## Credenciales demo
 - Admin: admin@elevyte.com / password123
