@@ -7,7 +7,9 @@ import {
   cardEnrollments,
   loyaltyCards,
   cardLevels,
+  businesses,
 } from "../../../../drizzle/schema";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
   try {
@@ -116,6 +118,17 @@ export async function POST(request: NextRequest) {
         registrations: (link.registrations || 0) + 1,
       })
       .where(eq(registrationLinks.id, link.id));
+
+    // Send welcome email
+    if (customer.email) {
+      const [biz] = await db.select().from(businesses).where(eq(businesses.id, card.businessId)).limit(1);
+      sendWelcomeEmail(
+        customer.email,
+        customer.firstName || "Cliente",
+        card.name,
+        biz?.name || ""
+      ).catch((err) => console.error("[EMAIL] Welcome email error:", err));
+    }
 
     return NextResponse.json({
       success: true,
