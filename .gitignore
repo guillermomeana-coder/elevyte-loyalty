@@ -48,3 +48,6 @@ next-env.d.ts
 certificates/
 *.p12
 *.pem
+
+.vercel
+.env*

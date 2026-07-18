@@ -79,6 +79,7 @@ export const businesses = pgTable(
       .notNull()
       .references(() => agencies.id, { onDelete: "cascade" }),
     name: varchar("name", { length: 255 }).notNull(),
+    slug: varchar("slug", { length: 100 }).unique(),
     logoUrl: text("logo_url"),
     emailDomain: varchar("email_domain", { length: 255 }),
     emailDomainVerified: boolean("email_domain_verified").default(false),
