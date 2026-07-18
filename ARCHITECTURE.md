@@ -96,11 +96,11 @@ src/middleware.ts           — Protección de rutas
 | F0 Foundation | ✅ DONE | DB, auth, layout, middleware |
 | F1 Agencia/Negocios | ✅ DONE | CRUD agencia, negocios, ubicaciones, admins |
 | F2 Tarjetas Core | ✅ DONE | CRUD tarjetas, rewards, niveles, 7 tabs |
-| F3 Analytics | ⬜ PENDIENTE | Dashboard métricas |
-| F4 QR Scanning | ⬜ PENDIENTE | Scanner, sellos, rate limiting |
-| F5 Wallet | ⬜ PENDIENTE | Apple Wallet + Google Wallet |
-| F6 Rutas Públicas | ⬜ PENDIENTE | Registro, menú público |
-| F7 Menús | ⬜ PENDIENTE | PDF, catálogo web, club invitation |
+| F3 Analytics | ⬜ PENDIENTE | Dashboard métricas con charts |
+| F4 QR Scanning | ✅ DONE | Scanner cámara, sellos, rate limiting, API scan |
+| F5 Wallet | ⬜ PENDIENTE | Apple Wallet + Google Wallet (necesita certs) |
+| F6 Rutas Públicas | ✅ DONE | Registro /register/[slug], menú público /menu/[slug] |
+| F7 Menús | ✅ DONE | PDF upload, catálogo web, club invitation |
 | F8 Pass Builder | ⬜ PENDIENTE | Editor visual |
 | F9 Push + Email | ⬜ PENDIENTE | Notificaciones, Resend |
 | F10 Billing | ⬜ PENDIENTE | Stripe, i18n |
