@@ -19,6 +19,7 @@ import {
   BarChart3,
   CreditCard,
   UtensilsCrossed,
+  QrCode,
   LogOut,
 } from "lucide-react";
 
@@ -31,6 +32,7 @@ const clientItems = [
   { title: "Métricas", url: "/analytics", icon: BarChart3 },
   { title: "Tarjetas", url: "/fidelidad", icon: CreditCard },
   { title: "Menús", url: "/menu-definitivo", icon: UtensilsCrossed },
+  { title: "Escanear", url: "/scan", icon: QrCode },
 ];
 
 export function AppSidebar({ agencyName, logoUrl }: { agencyName: string; logoUrl?: string | null }) {
