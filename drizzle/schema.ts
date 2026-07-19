@@ -488,12 +488,75 @@ export const clubInvitations = pgTable("club_invitations", {
 });
 
 // =============================================
+// PAYMENTS (USDT BSC - same as Aurion)
+// =============================================
+
+export const paymentStatusEnum = pgEnum("payment_status", [
+  "pending",
+  "confirmed",
+  "expired",
+  "failed",
+]);
+
+export const subscriptionPlans = pgTable("subscription_plans", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 100 }).notNull(),
+  slug: varchar("slug", { length: 50 }).unique().notNull(),
+  priceUsdt: decimal("price_usdt", { precision: 10, scale: 2 }).notNull(),
+  maxLocations: integer("max_locations").notNull().default(1),
+  maxCards: integer("max_cards").notNull().default(2),
+  features: jsonb("features").default([]),
+  isActive: boolean("is_active").default(true),
+  sortOrder: integer("sort_order").default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+});
+
+export const payments = pgTable(
+  "payments",
+  {
+    id: serial("id").primaryKey(),
+    agencyId: integer("agency_id")
+      .notNull()
+      .references(() => agencies.id, { onDelete: "cascade" }),
+    planId: integer("plan_id")
+      .notNull()
+      .references(() => subscriptionPlans.id),
+    amountUsdt: decimal("amount_usdt", { precision: 10, scale: 2 }).notNull(),
+    paymentAddress: varchar("payment_address", { length: 100 }).notNull(),
+    addressIndex: integer("address_index").notNull(),
+    status: paymentStatusEnum("status").default("pending"),
+    txHash: varchar("tx_hash", { length: 255 }),
+    confirmedAt: timestamp("confirmed_at", { withTimezone: true }),
+    expiresAt: timestamp("expires_at", { withTimezone: true }),
+    createdBy: integer("created_by").references(() => users.id),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+  },
+  (table) => [
+    index("idx_payments_agency").on(table.agencyId),
+    index("idx_payments_status").on(table.status),
+  ]
+);
+
+// =============================================
 // RELATIONS
 // =============================================
 
 export const agenciesRelations = relations(agencies, ({ many }) => ({
   businesses: many(businesses),
   users: many(users),
+  payments: many(payments),
+}));
+
+export const paymentsRelations = relations(payments, ({ one }) => ({
+  agency: one(agencies, {
+    fields: [payments.agencyId],
+    references: [agencies.id],
+  }),
+  plan: one(subscriptionPlans, {
+    fields: [payments.planId],
+    references: [subscriptionPlans.id],
+  }),
 }));
 
 export const businessesRelations = relations(businesses, ({ one, many }) => ({

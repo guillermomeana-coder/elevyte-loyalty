@@ -20,6 +20,7 @@ import {
   CreditCard,
   UtensilsCrossed,
   QrCode,
+  Wallet,
   LogOut,
 } from "lucide-react";
 
@@ -33,6 +34,7 @@ const clientItems = [
   { title: "Tarjetas", url: "/fidelidad", icon: CreditCard },
   { title: "Menús", url: "/menu-definitivo", icon: UtensilsCrossed },
   { title: "Escanear", url: "/scan", icon: QrCode },
+  { title: "Planes", url: "/pricing", icon: Wallet },
 ];
 
 export function AppSidebar({ agencyName, logoUrl }: { agencyName: string; logoUrl?: string | null }) {
