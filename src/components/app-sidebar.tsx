@@ -22,6 +22,7 @@ import {
   QrCode,
   Wallet,
   LogOut,
+  ChevronRight,
 } from "lucide-react";
 
 const agencyItems = [
@@ -30,9 +31,9 @@ const agencyItems = [
 ];
 
 const clientItems = [
-  { title: "Métricas", url: "/analytics", icon: BarChart3 },
+  { title: "Metricas", url: "/analytics", icon: BarChart3 },
   { title: "Tarjetas", url: "/fidelidad", icon: CreditCard },
-  { title: "Menús", url: "/menu-definitivo", icon: UtensilsCrossed },
+  { title: "Menus", url: "/menu-definitivo", icon: UtensilsCrossed },
   { title: "Escanear", url: "/scan", icon: QrCode },
   { title: "Planes", url: "/pricing", icon: Wallet },
 ];
@@ -47,63 +48,84 @@ export function AppSidebar({ agencyName, logoUrl }: { agencyName: string; logoUr
   }
 
   return (
-    <Sidebar>
-      <SidebarHeader className="p-4">
-        <div className="flex items-center gap-3">
+    <Sidebar className="border-r-0">
+      <SidebarHeader className="p-4 pb-2">
+        <div className="flex items-center gap-3 px-1">
           {logoUrl ? (
-            <img src={logoUrl} alt={agencyName} className="h-10 w-10 rounded-md object-cover" />
+            <img src={logoUrl} alt={agencyName} className="h-9 w-9 rounded-xl object-cover shadow-sm" />
           ) : (
-            <div className="h-10 w-10 rounded-md bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
               {agencyName.slice(0, 2).toUpperCase()}
             </div>
           )}
-          <span className="font-semibold text-sm truncate">{agencyName}</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-sm truncate">{agencyName}</p>
+            <p className="text-[11px] text-muted-foreground">Panel de control</p>
+          </div>
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="px-2">
         <SidebarGroup>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-widest text-muted-foreground/60 px-3 mb-1">
+            Agencia
+          </SidebarGroupLabel>
           <SidebarMenu>
-            {agencyItems.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  render={<a href={item.url} />}
-                  isActive={pathname.startsWith(item.url)}
-                >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {agencyItems.map((item) => {
+              const active = pathname.startsWith(item.url);
+              return (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    render={<a href={item.url} />}
+                    isActive={active}
+                    className={active ? "bg-orange-50 text-orange-600 font-medium" : "text-gray-600 hover:bg-gray-50"}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.title}</span>
+                    {active && <ChevronRight className="h-3 w-3 ml-auto opacity-50" />}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroup>
 
-        <SidebarSeparator />
+        <SidebarSeparator className="mx-3" />
 
         <SidebarGroup>
-          <SidebarGroupLabel>PANEL DEL CLIENTE</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-[10px] uppercase tracking-widest text-muted-foreground/60 px-3 mb-1">
+            Panel del cliente
+          </SidebarGroupLabel>
           <SidebarMenu>
-            {clientItems.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  render={<a href={item.url} />}
-                  isActive={pathname.startsWith(item.url)}
-                >
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.title}</span>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
+            {clientItems.map((item) => {
+              const active = pathname.startsWith(item.url);
+              return (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton
+                    render={<a href={item.url} />}
+                    isActive={active}
+                    className={active ? "bg-orange-50 text-orange-600 font-medium" : "text-gray-600 hover:bg-gray-50"}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.title}</span>
+                    {active && <ChevronRight className="h-3 w-3 ml-auto opacity-50" />}
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="p-3">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={handleLogout}>
+            <SidebarMenuButton
+              onClick={handleLogout}
+              className="text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+            >
               <LogOut className="h-4 w-4" />
-              <span>Cerrar sesión</span>
+              <span>Cerrar sesion</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

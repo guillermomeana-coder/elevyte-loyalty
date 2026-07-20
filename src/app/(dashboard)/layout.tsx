@@ -13,7 +13,6 @@ export default async function DashboardLayout({
   const agencyName = user.agency?.name || "Elevyte";
   const logoUrl = user.agency?.logoUrl || null;
 
-  // Use assigned business or first available
   const currentBusiness =
     user.business || user.allBusinesses[0] || { name: "Sin negocio", id: 0 };
   const locationName = "Principal";
@@ -26,7 +25,7 @@ export default async function DashboardLayout({
           businessName={currentBusiness.name}
           locationName={locationName}
         />
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-4 md:p-6 lg:p-8 bg-gray-50/50 min-h-[calc(100vh-3.5rem)]">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
