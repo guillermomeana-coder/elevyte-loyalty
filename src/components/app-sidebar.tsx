@@ -21,6 +21,7 @@ import {
   UtensilsCrossed,
   QrCode,
   Wallet,
+  Star,
   LogOut,
   ChevronRight,
 } from "lucide-react";
@@ -35,6 +36,7 @@ const clientItems = [
   { title: "Tarjetas", url: "/fidelidad", icon: CreditCard },
   { title: "Menus", url: "/menu-definitivo", icon: UtensilsCrossed },
   { title: "Escanear", url: "/scan", icon: QrCode },
+  { title: "Resenas", url: "/reviews", icon: Star },
   { title: "Planes", url: "/pricing", icon: Wallet },
 ];
 

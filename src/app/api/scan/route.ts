@@ -8,6 +8,7 @@ import {
   scans,
   cardLevels,
   customers,
+  businesses,
 } from "../../../../drizzle/schema";
 
 export async function POST(request: NextRequest) {
@@ -144,8 +145,30 @@ export async function POST(request: NextRequest) {
       .where(eq(customers.id, enrollment.customerId))
       .limit(1);
 
+    // Check review request trigger
+    let reviewRequest = null;
+    const newVisits = (updates.totalVisits as number) || (enrollment.totalVisits || 0) + 1;
+    const [biz] = await db
+      .select()
+      .from(businesses)
+      .where(eq(businesses.id, card.businessId))
+      .limit(1);
+
+    if (
+      biz?.reviewRequestEnabled &&
+      biz?.googleReviewUrl &&
+      biz?.reviewRequestAfterVisits &&
+      newVisits === biz.reviewRequestAfterVisits
+    ) {
+      reviewRequest = {
+        message: biz.reviewRequestMessage || "Nos encantaria que nos dejes una resena!",
+        url: biz.googleReviewUrl,
+      };
+    }
+
     return NextResponse.json({
       success: true,
+      reviewRequest,
       customer: {
         name: `${customer?.firstName || ""} ${customer?.lastName || ""}`.trim(),
       },
